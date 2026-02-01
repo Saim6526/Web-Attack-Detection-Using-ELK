@@ -1,14 +1,12 @@
 # Web-Attack-Detection-Using-ELK
 
-# SQL Injection Detection & Alerting with Elastic SIEM
-
 ## Objective
 
-The objective of this project was to design and implement a basic SOC-style detection capability for SQL Injection (SQLi) attacks using the Elastic Stack. The project focused on ingesting real web server logs, analyzing malicious SQLi patterns, and creating functional SIEM detection rules and alerts. This lab was built as a defensive, detection-engineering–focused project rather than a penetration testing exercise.
+This if my first cyber security project that I worked on. I mainly did it to learn how SIEMs work, how to forward, analyze, and respond to logs alongside with understanding the attackers mindset as well as how attacks are done in a real world scenario. Although it seemed like a simple "Attack and Analyze Log" project, it turned out to be a log more complicated as you will see in the "Steps" section. I learned a lot more than just Analyzing and attacking but rather configurating, troubleshooting, detection engineering, mapping attacks to MITRE ATT&CK, OWSAP and more.
 
 ## Skills Learned
 
-- SQL Injection attack patterns (error-based, boolean-based)
+- Log Analysis
 - SIEM detection engineering fundamentals
 - Elastic Security detection rule creation
 - Alert tuning and validation
@@ -17,6 +15,8 @@ The objective of this project was to design and implement a basic SOC-style dete
 - Log ingestion and normalization
 - Troubleshooting SIEM ingestion pipelines
 - Basic SOC alert workflow
+- Basic Penetration Testing on DVWA (Command Injection, SQL Injection, XSS (Stored))
+- Configuration of Docker, ELK, Filebeat
 
 ## Tools Used
 
@@ -30,7 +30,7 @@ The objective of this project was to design and implement a basic SOC-style dete
 
 ## Project Overview
 
-This project simulates a real-world SOC detection scenario by generating SQL Injection attacks against a vulnerable web application and detecting them through log-based analysis. Apache access logs were ingested using Filebeat, processed through Logstash, and indexed into Elasticsearch. Detection rules were created in Kibana to identify SQL Injection attempts based on known payload patterns and request characteristics.
+This project simulates a real-world SOC detection scenario by generating different attacks against a vulnerable web application and detecting them through log-based analysis. Apache access logs were ingested using Filebeat, processed through Logstash, and indexed into Elasticsearch. Detection rules were created in Kibana to identify SQL Injection attempts based on known payload patterns and request characteristics.
 
 Alerts were validated by manually triggering SQLi attacks and confirming alert generation without excessive false positives.
 
