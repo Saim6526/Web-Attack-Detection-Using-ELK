@@ -6,6 +6,7 @@ I will paste a diagram that I made on draw.io below for a visual representation 
 ### **Architecture & Infrastructure**
 
 **The Target Environment (**Red Team Zone**)**
+
 Virtualization: Hosted on a Kali Linux VM via Oracle.
 
 Networking: Configured using NAT (Network Address Translation). This ensures environment isolation while allowing the VM to communicate with the Host through a virtual gateway.
@@ -15,11 +16,11 @@ Application Stack (LAMP):
 - Apache (Web Server) - Listening on Port 80
 - MariaDB (Database) - Listening on Port 3306
 - PHP (Application Logic)
-- 
 Target: DVWA (Damn Vulnerable Web App) used for simulating SQL Injection and Command Injection attacks.
 
 
 **The Monitoring Pipeline (Log Shipping)**
+
 To ensure real-time visibility, a telemetry pipeline was established:
 
 - Agent: Filebeat is installed on the Kali VM as a lightweight log shipper.
@@ -28,6 +29,7 @@ To ensure real-time visibility, a telemetry pipeline was established:
 
 
 **The SIEM Stack (**Blue Team Zone**)**
+
 The defense infrastructure is containerized using Docker Compose to ensure modularity and efficient resource sharing.
 
 - Logstash: Ingests raw logs from Filebeat. It uses custom Grok filters to parse fields and identify malicious patterns (e.g., UNION, SELECT, ;, &&).
