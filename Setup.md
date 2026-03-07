@@ -1,5 +1,6 @@
 In this section I will explain the tools I used along side with the architecture and infastructure of this setup.
 I will paste a diagram that I made on draw.io below for a visual representation along side with making it easier for me to explain, and anyone who goes through this section, to understand.
+
 <img width="632" height="606" alt="image" src="https://github.com/user-attachments/assets/11a588c1-6296-45bc-9b82-71a54b95c8ba" />
 
 Architecture & Infrastructure
