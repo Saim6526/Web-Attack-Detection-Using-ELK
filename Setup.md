@@ -3,7 +3,7 @@ I will paste a diagram that I made on draw.io below for a visual representation 
 
 <img width="632" height="606" alt="image" src="https://github.com/user-attachments/assets/11a588c1-6296-45bc-9b82-71a54b95c8ba" />
 
-#### **Architecture & Infrastructure**
+###**Architecture & Infrastructure**
 
 1. The Target Environment (**Red Team Zone**)
 Virtualization: Hosted on a Kali Linux VM via Oracle.
