@@ -3,9 +3,9 @@ I will paste a diagram that I made on draw.io below for a visual representation 
 
 <img width="632" height="606" alt="image" src="https://github.com/user-attachments/assets/11a588c1-6296-45bc-9b82-71a54b95c8ba" />
 
-Architecture & Infrastructure
+#### **Architecture & Infrastructure**
 
-1. The Target Environment (Red Team Zone)
+1. The Target Environment (**Red Team Zone**)
 Virtualization: Hosted on a Kali Linux VM via Oracle.
 
 Networking: Configured using NAT (Network Address Translation). This ensures environment isolation while allowing the VM to communicate with the Host through a virtual gateway.
@@ -21,6 +21,7 @@ MariaDB (Database) - Listening on Port 3306
 PHP (Application Logic)
 
 Target: DVWA (Damn Vulnerable Web App) used for simulating SQL Injection and Command Injection attacks.
+
 
 2. The Monitoring Pipeline (Log Shipping)
 To ensure real-time visibility, a telemetry pipeline was established:
