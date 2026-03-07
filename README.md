@@ -34,26 +34,6 @@ This project simulates a real-world SOC detection scenario by generating differe
 
 Alerts were validated by manually triggering SQLi attacks and confirming alert generation without excessive false positives.
 
-## Detection Logic
-
-The SQL Injection detection rule focuses on identifying suspicious query patterns commonly associated with SQLi attacks, including:
-
-- Boolean-based payloads (`' OR '1'='1`)
-- SQL keywords in URL parameters (`UNION`, `SELECT`, `SLEEP`)
-- Abnormal request structures in HTTP GET/POST requests
-
-The rule operates on Apache access logs ingested into the `filebeat-*` index pattern and triggers alerts at a defined interval to simulate SOC monitoring behavior.
-
-## Steps
-
-Add screenshots for the following stages:
-
-- Filebeat ingesting Apache access logs  
-- Logstash pipeline configuration  
-- SQL Injection attempts in DVWA  
-- Detection rule configuration in Kibana  
-- Triggered SQLi alerts in Elastic Security  
-
 Each screenshot should include a short caption explaining what is being shown and why it matters.
 
 *Ref 1: SQL Injection attempt in DVWA generating malicious HTTP requests logged by Apache*
