@@ -37,7 +37,7 @@ The defense infrastructure is containerized using Docker Compose to ensure modul
 - Kibana: The visualization layer used for threat hunting and dashboarding (Port 5601).
 
 
-🛠️ Tools Used
+Tools Used
 
 - Hypervisor: Oracle
 - Containers: Docker & Docker Compose
