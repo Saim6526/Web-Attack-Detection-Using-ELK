@@ -4,7 +4,7 @@ The project started with setting up the Kali Linux environment. I opted to insta
 Once the OS was settled, the first essential step was a full system refresh:
 
 
-`sudo apt update && sudo apt upgrade`
+`sudo apt update && sudo apt upgrade
 This ensures all tools have the latest security and dependency fixes, preventing old failures when running modern code later on.
 
 🏗️ Building the LAMP Stack
