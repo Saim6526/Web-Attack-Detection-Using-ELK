@@ -1,3 +1,19 @@
+# DVWA Lab Logs Index
+
+| Section | Phase | Quick Link |
+| :--- | :--- | :--- |
+| **01** | **Network Recon** | [Infrastructure Discovery (Recon)](#infrastructure-discovery-recon) |
+| **02** | **App Enumeration** | [Application Discovery (Enumeration)](#application-discovery-enumeration) |
+| **03** | **Path Discovery** | [Directory & Function Discovery](#directory--function-discovery) |
+| **04** | **Threat Modeling** | [Threat Modeling: Mapping Modules](#threat-modeling-mapping-modules) |
+| **05** | **SQL Injection** | [SQL Injection (SQLi): Database Compromise](#sql-injection-sqli-database-compromise) |
+| **06** | **OS Command Execution** | [Command Injection: System Compromise](#command-injection-system-compromise) |
+| **07** | **Session Hijacking** | [Stored XSS: User & Session Compromise](#stored-xss-user--session-compromise) |
+| **08** | **Strategic Mapping** | [Strategic Framework Mapping](#strategic-framework-mapping) |
+| **09** | **Lessons Learned** | [Defender Lessons Learned](#defender-lessons-learned) |
+
+---
+
 # Phase I: Reconnaissance & Enumeration
 
 ## Infrastructure Discovery (Recon)
@@ -120,9 +136,7 @@ This log documents the transition from reconnaissance to active exploitation acr
 
 
 
-## 🛡 Defender Lessons Learned
+## Defender Lessons Learned
 1. **Never Trust the Client:** Relying on dropdown menus or `maxlength` attributes for security is ineffective, as they are easily bypassed via DevTools.
 2. **Blacklists Fail:** Filtering specific characters (like `;`) or tags (like `<script>`) is insufficient. Security should rely on allow-listing or context-aware encoding.
 3. **Defense in Depth:** Proper remediation requires server-side validation, output encoding, and a robust Content Security Policy (CSP).
-
-**Lab Phase II Complete.**
