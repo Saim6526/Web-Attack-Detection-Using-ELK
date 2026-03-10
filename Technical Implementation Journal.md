@@ -75,7 +75,6 @@ EXIT;
 3. Application Config
 I modified the DVWA config template (/var/www/html/DVWA/config/config.inc.php) to match these database credentials:
 ```
-PHP
 $_DVWA[ 'db_server' ]   = 'localhost';
 $_DVWA[ 'db_database' ] = 'dvwa';
 $_DVWA[ 'db_user' ]     = 'dvwauser';
@@ -141,7 +140,6 @@ Persistent Slow Query Log
 I enabled the slow query log to catch heavy UNION or SLEEP usage. I added these lines to the end of /etc/mysql/mariadb.conf.d/50-server.cnf:
 
 ```
-Ini, TOML
 # Slow query log (enable for forensics/analysis)
 slow_query_log = 1
 slow_query_log_file = /var/log/mysql/mysql-slow.log
@@ -273,8 +271,8 @@ output.file:
 ```
 
 **Tip:**
-Make sure to comment out output.elasticsearch or output.logstash while using output.file.
-If multiple outputs exist, Filebeat will fail to start.
+*Make sure to comment out output.elasticsearch or output.logstash while using output.file.
+If multiple outputs exist, Filebeat will fail to start.*
 
 ### Verification & Testing
 
