@@ -1,4 +1,4 @@
-# 📑 Project Navigation Index
+# Project Navigation Index
 
 | Section | Phase | Quick Link |
 | :--- | :--- | :--- |
