@@ -1,4 +1,4 @@
-# 📑 Defensive & SIEM Hardening Index
+# ELK Docker Logs Index
 
 | Section | Phase | Quick Link |
 | :--- | :--- | :--- |
@@ -11,7 +11,6 @@
 | **07** | **Rule Creation** | [Detection Rule Creation: SQL Injection](#detection-rule-creation-sql-injection) |
 | **08** | **Troubleshooting** | [Troubleshooting the Ingestion Pipeline (401 Error)](#troubleshooting-the-ingestion-pipeline-401-error) |
 | **09** | **Incident Response** | [SOC Playbook: SQLi Response](#soc-playbook-sqli-response) |
-| **10** | **Project Conclusion** | [Results & Lessons Learned](#results--lessons-learned) |
 
 ---
 
@@ -158,17 +157,3 @@ I established a standard operating procedure for when this alert fires:
 | 2 | Investigate | Source Audit | Identify the Source IP and cross-reference `error.log` for successful injection evidence |
 | 3 | Contain | IP Blocking | Temporarily block the source IP at the firewall or rate-limit the endpoint |
 | 4 | Remediate | Code Fix | Move from dynamic queries to Prepared Statements (Parameterized Queries) |
-
-
-## Results & Lessons Learned
-
-**Persistence Matters:**  
-Most security features in professional SIEM platforms are disabled by default. Understanding how to configure encryption keys is a critical skill for a security engineer.
-
-**Authentication Chains:**  
-Securing one part of the stack (Elasticsearch) requires updating the entire pipeline (Logstash and Filebeat).
-
-**High-Fidelity Alerts:**  
-The custom KQL rule produced **zero false positives** during testing while successfully detecting every manual injection attempt.
-
-**Lab Project Status:** Fully Operational.
