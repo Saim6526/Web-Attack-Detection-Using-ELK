@@ -2,7 +2,6 @@
 
 Once the logs reach the SIEM, the priority shifts from **Ingestion** to **Integrity**. A SIEM is only as powerful as its parsing logic. If the logs aren't structured, detection rules cannot be automated.
 
----
 
 ## Log Structure & GROK Validation
 Before building dashboards, I verified that the **Logstash GROK filters** were correctly "breaking" the raw Apache strings into meaningful JSON fields. 
@@ -25,8 +24,6 @@ After auditing the Kibana "Discover" tab, I confirmed that the following fields 
 * `response`: "200"
 * `httpversion`: "1.1"
 
----
-
 ## Elasticsearch Optimization: Fields vs. Keywords
 I audited the index mapping to ensure efficient searching. Elasticsearch stores fields in two ways to balance speed and flexibility:
 
@@ -35,33 +32,28 @@ I audited the index mapping to ensure efficient searching. Elasticsearch stores 
 
 *Note: These are not duplicates; they are a mechanical necessity for any professional SIEM pipeline to allow for high-speed data visualization.*
 
----
-
 ## Log Source Intelligence
 Understanding what each log file provides is essential for **Correlation** and **Incident Response**.
 
 
 
-### A. Apache Access Logs (`access.log`)
+#### A. Apache Access Logs (`access.log`)
 This is the **Primary Detection Source**. It records the "What, Who, and Where" of the transport layer.
 * **Best for:** Detecting SQLi payloads in URI parameters, Brute Force attempts (repeated 401/200 codes), and XSS scripts in GET requests.
 * **Example Pattern:** `POST /DVWA/vulnerabilities/xss_s/ HTTP/1.1 200`
 
-### B. Apache Error Logs (`error.log`)
+#### B. Apache Error Logs (`error.log`)
 This provides the **Context**. It records the "Behind the Scenes" of the application.
 * **Best for:** Confirming exploitation. For example, if an SQLi attack is successful, the error log might show database driver warnings or PHP crashes that confirm the app’s logic was broken.
 * **Useful for:** Correlation and Impact Analysis.
 
----
 
-## Security Takeaway
+### Security Takeaway
 By ensuring every log is parsed into a structured format, we transition from "looking at text files" to **Database Activity Monitoring**. This structure is what allows us to write automated detection rules that can block an attacker in real-time.
 
 # SIEM Hardening & Automated Detection Engineering
 
 This phase documents the transition from manual log searching to **Automated Alerting**. This involved hardening the ELK stack, resolving complex authentication dependencies, and deploying high-fidelity detection rules.
-
----
 
 ## Hardening the Stack: Security & Encryption
 By default, many ELK installations run without security. To enable the **Detection Engine**, I had to implement mandatory encryption and authentication.
@@ -85,8 +77,6 @@ When first accessing the Rules page, I encountered a `Detection Engine Permissio
 - XPACK_REPORTING_ENCRYPTIONKEY=KEY_3
 - xpack.security.authc.api_key.enabled=true
 ```
-
----
 
 ## Detection Rule Creation: SQL Injection
 
@@ -114,7 +104,6 @@ message : (
 - **MITRE ATT&CK Mapping:** T1190 - Exploit Public-Facing Application  
 - **Schedule:** Runs every 5 minutes with a 5-minute look-back to ensure no data gaps.
 
----
 
 ## Troubleshooting the Ingestion Pipeline (401 Error)
 
@@ -140,7 +129,6 @@ output {
 
 **Note:** I also resolved a *Pipeline Conflict* by consolidating multiple conflicting `.conf` files into a single primary pipeline.
 
----
 
 ## SOC Playbook: SQLi Response
 
@@ -153,7 +141,6 @@ I established a standard operating procedure for when this alert fires:
 | 3 | Contain | IP Blocking | Temporarily block the source IP at the firewall or rate-limit the endpoint |
 | 4 | Remediate | Code Fix | Move from dynamic queries to Prepared Statements (Parameterized Queries) |
 
----
 
 ## Results & Lessons Learned
 
@@ -167,9 +154,3 @@ Securing one part of the stack (Elasticsearch) requires updating the entire pipe
 The custom KQL rule produced **zero false positives** during testing while successfully detecting every manual injection attempt.
 
 **Lab Project Status:** Fully Operational.
-
----
-
-### Final Touches for your GitHub
-- **Table of Contents:** Add a link to this section in your **Project Navigation Index**.
-- **Sensitive Information:** Replace real passwords with placeholders before publishing.
