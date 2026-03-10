@@ -1,3 +1,19 @@
+# Project Navigation Index
+
+| Phase | Description | Quick Links |
+| :--- | :--- | :--- |
+| **01** | **Environment Initialization** | [Setup & Updates]() |
+| **02** | **LAMP Stack Deployment** | [Building the Stack](#2-building-the-lamp-stack) |
+| **03** | **DVWA Installation** | [Deployment & Config](#3-dvwa-deployment--configuration) |
+| **04** | **Logging & Forensics** | [Attacker Mindset Logging](#4-the-attacker-mindset-logging-setup) |
+| **05** | **Evidence Collection** | [Live SQLi Testing](#5-live-sqli-testing--evidence-collection) |
+| **06** | **Data Ingestion** | [Filebeat Configuration](#6-log-ingestion--filebeat-configuration) |
+| **07** | **SIEM Orchestration** | [Dockerized ELK Setup](#7-host-machine-siem-setup-dockerized-elk) |
+| **08** | **Networking & Validation** | [Final Bridge & Testing](#8-networking--final-validation) |
+
+---
+
+
 # Environment Initialization: Kali Linux
 The project started with setting up the Kali Linux environment. I opted to install the ISO directly rather than using a pre-packaged virtual machine to ensure full control over the installation process.
 
