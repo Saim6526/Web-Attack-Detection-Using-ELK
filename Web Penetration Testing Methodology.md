@@ -91,3 +91,41 @@ index.php (Post-Auth Dashboard): This confirms the login worked, cookies were ac
 
 The basics of web enumeration are now complete.
 
+Directory & Function Discovery (Web Recon II)
+This phase moves beyond high-level network scanning. Here, we actively hunt for hidden directories, files, and functional modules to map out the application's attack surface.
+
+## Discovery Techniques
+To find out what we’re actually hacking, You can utilize three primary approaches:
+
+- Manually Browsing: Just clicking through the app to see how it behaves.
+- Spidering with Burp Suite: Using the automated spider to crawl the link structure and discover endpoints I might have missed.
+- Directory Fuzzing: Using tools to brute-force common paths.
+  - Tools: dirsearch, gobuster, or ffuf.
+
+For DVWA, the goal is to map out the active components:
+
+- `/vulnerabilities/`
+- `/security.php`
+- `/includes/`
+- `/setup.php`
+
+### Automated vs. Manual Enumeration
+I attempted to automate discovery using dirsearch:
+
+
+`dirsearch -u http://127.0.0.1/DVWA/`
+*Note: The tool didn't return significant results for my specific configuration, so I manually enumerated the vulnerabilities modules. This is often necessary when automated tools fail to account for specific application configurations.*
+
+### Mapping Modules to Attacker Frameworks
+The final step of the Recon/Enumeration phase is mapping the discovered modules to the tactical framework an attacker actually follows. This turns a "list of buttons" into a "threat model."
+
+| Module | Goal / Technique | Log Indicators |
+| --- | --- | --- |
+| **Brute Force** | Credential attacks, weak auth | Multiple failed logins, repeated sources |
+| **SQL Injection** | Injection, direct data access, bypass login | Odd query strings, ', UNION, SELECT, OR 1=1 |
+| **Command Injection** | RCE, gaining shell, pivoting | ping, netcat, strange commands in parameters |
+| **XSS (Reflected/Stored/DOM)** | Browser hijacking, cookie theft | <script>, event handlers, encoded payloads |
+| **File Inclusion / Upload** | Backdoors, RCE, traversal | ../../, PHP file uploads, shell.php |
+| **CSRF** | User impersonation, account takeover | Legitimate UA but suspicious actions |
+| **Weak Session IDs** | Predictable tokens, session hijacking | Token manipulation, session replay |
+| **Crypto / API / Redir** | Token manipulation, redirect phishing | Abusing insecure API endpoints |
