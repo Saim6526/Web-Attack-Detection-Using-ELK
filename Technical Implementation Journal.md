@@ -1,15 +1,16 @@
-# Project Navigation Index
+# 📑 Project Navigation Index
 
-| Phase | Description | Quick Links |
+| Section | Phase | Quick Link |
 | :--- | :--- | :--- |
-| **01** | **Environment Initialization** | [Setup & Updates]() |
-| **02** | **LAMP Stack Deployment** | [Building the Stack](#2-building-the-lamp-stack) |
-| **03** | **DVWA Installation** | [Deployment & Config](#3-dvwa-deployment--configuration) |
-| **04** | **Logging & Forensics** | [Attacker Mindset Logging](#4-the-attacker-mindset-logging-setup) |
-| **05** | **Evidence Collection** | [Live SQLi Testing](#5-live-sqli-testing--evidence-collection) |
-| **06** | **Data Ingestion** | [Filebeat Configuration](#6-log-ingestion--filebeat-configuration) |
-| **07** | **SIEM Orchestration** | [Dockerized ELK Setup](#7-host-machine-siem-setup-dockerized-elk) |
-| **08** | **Networking & Validation** | [Final Bridge & Testing](#8-networking--final-validation) |
+| **01** | **Kali Linux Setup** | [Environment Initialization](#environment-initialization-kali-linux) |
+| **02** | **LAMP Stack** | [Building the LAMP Stack](#building-the-lamp-stack) |
+| **03** | **DVWA Setup** | [DVWA Deployment & Configuration](#dvwa-deployment--configuration) |
+| **04** | **Forensic Logging** | [The Attacker Mindset Logging Setup](#the-attacker-mindset-logging-setup) |
+| **05** | **Evidence Gathering** | [Live SQLi Testing & Evidence Collection](#2-live-sqli-testing--evidence-collection) |
+| **06** | **Log Ingestion** | [Log Ingestion & Filebeat Configuration](#log-ingestion--filebeat-configuration) |
+| **07** | **SIEM (Docker ELK)** | [Host Machine SIEM Setup (Dockerized ELK)](#host-machine-siem-setup-dockerized-elk) |
+| **08** | **Networking** | [Networking: Connecting the VM to the Host](#networking-connecting-the-vm-to-the-host) |
+| **09** | **Visualization** | [Final Validation & Kibana Visualization](#final-validation--kibana-visualization) |
 
 ---
 
