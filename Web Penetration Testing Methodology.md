@@ -1,7 +1,5 @@
 # Phase I: Reconnaissance & Enumeration
 
-
-
 ## Infrastructure Discovery (Recon)
 Reconnaissance is gathering information about the target before interaction. For this lab, I focused on verifying the target's availability and open services.
 
