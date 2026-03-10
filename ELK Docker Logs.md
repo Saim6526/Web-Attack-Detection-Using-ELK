@@ -1,3 +1,21 @@
+# 📑 Defensive & SIEM Hardening Index
+
+| Section | Phase | Quick Link |
+| :--- | :--- | :--- |
+| **01** | **Parsing & Integrity** | [Defensive Analysis: Log Parsing & Forensic Integrity](#defensive-analysis-log-parsing--forensic-integrity) |
+| **02** | **GROK Validation** | [Log Structure & GROK Validation](#log-structure--grok-validation) |
+| **03** | **ES Optimization** | [Elasticsearch Optimization: Fields vs. Keywords](#elasticsearch-optimization-fields-vs-keywords) |
+| **04** | **Log Intelligence** | [Log Source Intelligence](#log-source-intelligence) |
+| **05** | **SIEM Hardening** | [SIEM Hardening & Automated Detection Engineering](#siem-hardening--automated-detection-engineering) |
+| **06** | **Security Config** | [Hardening the Stack: Security & Encryption](#hardening-the-stack-security--encryption) |
+| **07** | **Rule Creation** | [Detection Rule Creation: SQL Injection](#detection-rule-creation-sql-injection) |
+| **08** | **Troubleshooting** | [Troubleshooting the Ingestion Pipeline (401 Error)](#troubleshooting-the-ingestion-pipeline-401-error) |
+| **09** | **Incident Response** | [SOC Playbook: SQLi Response](#soc-playbook-sqli-response) |
+| **10** | **Project Conclusion** | [Results & Lessons Learned](#results--lessons-learned) |
+
+---
+
+
 # Defensive Analysis: Log Parsing & Forensic Integrity
 
 Once the logs reach the SIEM, the priority shifts from **Ingestion** to **Integrity**. A SIEM is only as powerful as its parsing logic. If the logs aren't structured, detection rules cannot be automated.
