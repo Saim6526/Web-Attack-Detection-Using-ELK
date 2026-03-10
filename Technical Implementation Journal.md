@@ -52,7 +52,7 @@ sudo systemctl start mariadb
 DVWA Deployment & Configuration
 After the stack was live, I cloned DVWA into the web root and set up the necessary permissions so the web server could interact with it properly.
 
-1. Clowning & Permissions
+1. Cloning & Permissions
 ```
 cd /tmp
 git clone https://github.com/digininja/DVWA.git
