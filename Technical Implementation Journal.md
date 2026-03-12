@@ -111,8 +111,9 @@ ls -l /var/log/apache2/
 ```
 # Ensure logrotate is enabled to prevent disk space issues
 cat /etc/logrotate.d/apache2
-MariaDB: Enabling Forensic Logging
 ```
+
+### MariaDB: Enabling Forensic Logging
 Standard database logging is often too quiet. For this project, I needed to see every query during testing and identify slow/heavy queries that might indicate automated scanning or complex injections.
 
 
