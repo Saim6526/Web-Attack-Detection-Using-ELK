@@ -44,6 +44,11 @@ It's important to check if the servers are actually running after installation.
 sudo systemctl status apache2 --no-pager
 sudo systemctl status mariadb --no-pager
 ```
+<img width="1320" height="970" alt="Apache2" src="https://github.com/user-attachments/assets/2874c3d5-78cd-4954-86d0-4c08ef3167ad" />
+<img width="1600" height="1077" alt="MariaDB" src="https://github.com/user-attachments/assets/4338c8cc-76b3-427d-ba15-eeaac5aae25d" />
+
+
+
 ```
 # If not running, start them manually
 sudo systemctl start apache2
@@ -80,7 +85,12 @@ $_DVWA[ 'db_database' ] = 'dvwa';
 $_DVWA[ 'db_user' ]     = 'dvwauser';
 $_DVWA[ 'db_password' ] = 'dvwapass';
 ```
+
+<img width="1600" height="1077" alt="DVWA_Setup" src="https://github.com/user-attachments/assets/9f667901-ef81-474b-9b02-909d79a23972" />
+
+
 Finally, I imported the database schema to complete the setup:
+<img width="1600" height="1077" alt="DVWA_Database" src="https://github.com/user-attachments/assets/0803dc9a-2873-4c60-86a5-bf015d54a850" />
 
 
 `sudo mysql -u dvwauser -p dvwa < /var/www/html/DVWA/dvwa.sql`
@@ -112,6 +122,11 @@ ls -l /var/log/apache2/
 # Ensure logrotate is enabled to prevent disk space issues
 cat /etc/logrotate.d/apache2
 ```
+
+<img width="1600" height="1077" alt="Apache_Logs" src="https://github.com/user-attachments/assets/72b507d7-8c65-4bfa-b7c6-42aeca0d5399" />
+
+
+
 
 ### MariaDB: Enabling Forensic Logging (Optional Testing)
 Standard database logging is often too quiet. For this project, I needed to see every query during testing and identify slow/heavy queries that might indicate automated scanning or complex injections.
@@ -176,10 +191,12 @@ I opened a terminal to watch the web and SQL logs live while I performed the att
 # Watch web + sql logs live
 sudo tail -F /var/log/apache2/access.log /var/log/apache2/error.log /tmp/mysqld-general.log
 ```
+
 Step 2: Executing the Attack
 In DVWA (Security: Low), I entered the following payload into the SQL Injection section:
 `' OR '1'='1' --`
 
+<img width="1920" height="1048" alt="Side_by_Side_Logs" src="https://github.com/user-attachments/assets/c17fef53-e1b0-4e2f-95cb-e8de2b5d3dbc" />
 
 Step 3: Forensic Evidence Gathering
 After stopping the live tail, I recorded the logs in a safe folder and extracted the most relevant snippets for the final report.
@@ -190,6 +207,9 @@ sudo cp /var/log/apache2/access.log ~/dvwa-evidence/apache-access.log
 sudo cp /var/log/apache2/error.log ~/dvwa-evidence/apache-error.log
 sudo cp /tmp/mysqld-general.log ~/dvwa-evidence/mysql-general.log 2>/dev/null || true
 ```
+
+<img width="1600" height="1077" alt="Existence_Apche2_Maridb_Logs" src="https://github.com/user-attachments/assets/82832cc2-820d-41cc-8733-0ddeed076abc" />
+
 
 ```
 # Extract specific snippets for analysis
@@ -260,6 +280,10 @@ filebeat.inputs:
     fields:
       source_type: web_and_db
 ```
+
+<img width="1745" height="1077" alt="Filebeat_Config_1" src="https://github.com/user-attachments/assets/078d5859-4a98-4496-b152-8bb03f1e5d79" />
+
+
 2. Local File Output (The “Dry Run”)
 
 Instead of sending logs directly to the SIEM, I directed the output to a local JSON file for verification.
@@ -270,6 +294,9 @@ output.file:
   rotate_every_kb: 10240
   number_of_files: 7
 ```
+
+<img width="1745" height="1077" alt="Filebeat-Config_2" src="https://github.com/user-attachments/assets/24e4b141-3b8a-4c85-af33-d49bea379db0" />
+
 
 **Tip:**
 *Make sure to comment out output.elasticsearch or output.logstash while using output.file.
@@ -288,6 +315,10 @@ sudo systemctl start filebeat
 curl http://127.0.0.1/DVWA/
 curl http://127.0.0.1/DVWA/login.php
 ```
+
+<img width="1745" height="1077" alt="Filebeat_Output" src="https://github.com/user-attachments/assets/691aadb1-783b-42e3-ad40-d03efc7ea7ed" />
+
+
 To confirm success, I checked the Filebeat log directory. A new .json file appeared containing timestamped events from Apache and MariaDB.
 
 `sudo ls /var/log/filebeat/`
@@ -390,6 +421,10 @@ networks:
     driver: bridge
 ```
 
+
+<img width="717" height="962" alt="Docker_YAML" src="https://github.com/user-attachments/assets/b162d62b-1348-46d1-864a-9c26a86c65bc" />
+
+
 2. Logstash Pipeline Configuration
 The Logstash pipeline is the "brain" of the ingestion process. It listens for incoming Filebeat traffic, parses the raw strings into searchable fields using Grok, and tags them for easy filtering.
 
@@ -435,6 +470,9 @@ output {
 
 ```
 
+<img width="735" height="717" alt="Beats_Config" src="https://github.com/user-attachments/assets/b3a0c78a-3431-4e67-bb01-822a71fd74bc" />
+
+
 3. Deployment & Service Health Checks
 With the configurations in place, we launch the stack and verify that the "heartbeat" of each service is healthy.
 
@@ -452,6 +490,11 @@ curl -s http://localhost:9200
 # Confirm cluster health (should return "green")
 curl -X GET "localhost:9200/_cluster/health?pretty"
 ```
+
+<img width="1396" height="120" alt="Docker_Status" src="https://github.com/user-attachments/assets/9402166b-b2dd-4719-a365-3a74c0ef1b51" />
+
+<img width="1269" height="384" alt="Health_Yellow" src="https://github.com/user-attachments/assets/2f994f7b-22c7-4f66-a645-980a3adcde6b" />
+
 
 ### Networking: Connecting the VM to the Host
 To ship logs from the Kali VM to the Host SIEM, we must bridge the network gap.
@@ -474,6 +517,10 @@ Select @timestamp as the time field.
 
 Manual Log Test: Run a manual injection on the VM to trigger a log:
 echo "SQLi_TEST_LOG $(date)" | sudo tee -a /var/log/apache2/access.log
+
+<img width="1919" height="1003" alt="Elastic_Payload" src="https://github.com/user-attachments/assets/34a6923b-2e17-4a5a-afa0-b8116eb7fec0" />
+
+
 
 ### Troubleshooting the Connection
 If logs are missing, use these commands to find the bottleneck:
