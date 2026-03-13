@@ -68,32 +68,50 @@ This provides the **Context**. It records the "Behind the Scenes" of the applica
 ### Security Takeaway
 By ensuring every log is parsed into a structured format, we transition from "looking at text files" to **Database Activity Monitoring**. This structure is what allows us to write automated detection rules that can block an attacker in real-time.
 
-# SIEM Hardening & Automated Detection Engineering
+## SIEM Hardening & Automated Detection Engineering
 
 This phase documents the transition from manual log searching to **Automated Alerting**. This involved hardening the ELK stack, resolving complex authentication dependencies, and deploying high-fidelity detection rules.
 
-## Hardening the Stack: Security & Encryption
-By default, many ELK installations run without security. To enable the **Detection Engine**, I had to implement mandatory encryption and authentication.
+### Hardening the Stack: Security & Encryption
+By default, many ELK installations run in a "Development" mode without security. To enable the **Detection Engine**, I transitioned the stack to a hardened "Production" configuration involving mandatory encryption and Identity & Access Management (IAM).
 
-### The "Permission Denied" Hurdle
-When first accessing the Rules page, I encountered a `Detection Engine Permission Required` error. This was due to missing encryption keys and security configurations.
+### 1. The "401 Challenge" & Permission Hurdles
+When first accessing the Rules page and running health checks, I encountered a `security_exception` (HTTP 401) and a `Detection Engine Permission Required` error. 
 
-**Resolution Steps:**
-1. **Enabled X-Pack Security:** Updated `docker-compose.yml` to set `xpack.security.enabled=true`.
-2. **Credential Management:** Generated system passwords using:
+**The Cause:** * **Authentication Gap:** Elasticsearch was demanding credentials that hadn't been configured yet.
+* **Encryption Gap:** The Detection Engine requires secure "Saved Object" encryption keys to protect alert metadata.
+
+![security expectation](https://github.com/user-attachments/assets/c2a5ea61-d33a-4ac9-b7ed-15501a925797)
+
+
+
+### 2. Resolution: Identity & Encryption Implementation
+I resolved these blockers through a structured three-step hardening process:
+
+1. **Enabled X-Pack Security:** Updated the `docker-compose.yml` to set `xpack.security.enabled=true`, forcing the cluster to require a "Handshake" (credentials) for every request.
+2. **Credential Management:** Generated secure system passwords using the built-in utility:
    `docker exec -it es /usr/share/elasticsearch/bin/elasticsearch-setup-passwords auto`
-3. **Encryption Key Generation:** Used OpenSSL to generate 32-byte base64 keys for Kibana:
+3. **Encryption Key Generation:** Used OpenSSL to generate 32-byte Base64 keys to ensure the integrity of saved objects and reporting:
    `openssl rand -base64 32`
 
-### Configuration Fix (Kibana Environment)
+### 3. Configuration Fix (Kibana Environment)
 *Note: GitHub and Docker environment variables must be capitalized for the system to parse them correctly.*
 
 ```
+# Kibana Environment Hardening
 - XPACK_SECURITY_ENCRYPTIONKEY=KEY_1
 - XPACK_ENCRYPTEDSAVEDOBJECTS_ENCRYPTIONKEY=KEY_2
 - XPACK_REPORTING_ENCRYPTIONKEY=KEY_3
 - xpack.security.authc.api_key.enabled=true
 ```
+> #### Here I am showing the updated version of my docker to inlude the encryption key for the security error
+![XPACK_Encryption](https://github.com/user-attachments/assets/5c64a503-8a01-4cad-8412-bca69dd862b2)
+
+
+
+> #### Here I checked the curl to check the health status of kibana with the credentials
+![dokcer health](https://github.com/user-attachments/assets/da3be8f6-014c-4b85-9787-b9475bc40260)
+
 
 ## Detection Rule Creation: SQL Injection
 
@@ -115,11 +133,19 @@ message : (
 )
 ```
 
+<img width="1916" height="919" alt="Alert_Dashboard" src="https://github.com/user-attachments/assets/9680ee87-4209-442e-b29b-fa3bd0b74e5f" />
+
+
+
 ### Rule Metadata
 - **Name:** Possible SQL Injection Attempt (Web Logs)  
 - **Severity:** High (Risk Score: 70)  
 - **MITRE ATT&CK Mapping:** T1190 - Exploit Public-Facing Application  
 - **Schedule:** Runs every 5 minutes with a 5-minute look-back to ensure no data gaps.
+
+> #### To provide full context for the incident, I mapped the alert to specific high-fidelity fields: the Source IP (Who), the Hostname (Where), and the SQLi payload (What) extracted from the message body.
+<img width="1916" height="919" alt="Alerts with Details" src="https://github.com/user-attachments/assets/c6692a57-f712-44ec-9451-e0ef25d43e54" />
+
 
 
 ## Troubleshooting the Ingestion Pipeline (401 Error)
