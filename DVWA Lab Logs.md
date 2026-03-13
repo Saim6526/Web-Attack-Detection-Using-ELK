@@ -24,6 +24,7 @@ Reconnaissance is gathering information about the target before interaction. For
 2. Verify connectivity: `ping -c 3 <DVWA-IP>`
 3. Service Discovery: `nmap -sV -sC -O <DVWA-IP>`
 
+<img width="1745" height="1077" alt="Nmap_Scan" src="https://github.com/user-attachments/assets/fd38fe41-c973-410c-a76f-cdbc97c95449" />
 
 
 ## Application Discovery (Enumeration)
@@ -55,7 +56,9 @@ Moving deeper into the application to find hidden paths.
 
 > **My Experience:** I ran `dirsearch -u http://127.0.0.1/DVWA/`. Because my specific config was non-standard, the tool didn't catch everything, so I supplemented this with manual enumeration of the `/vulnerabilities/` sub-directories.
 
+<img width="1745" height="1077" alt="Dirsearch" src="https://github.com/user-attachments/assets/c5978a77-922b-4b8b-b91d-ebbde3670cc2" />
 
+<img width="1745" height="1077" alt="phpinfo" src="https://github.com/user-attachments/assets/9534e61c-901c-41f6-8fa8-fbd61ffff80d" />
 
 
 ## Threat Modeling: Mapping Modules
@@ -85,6 +88,8 @@ This log documents the transition from reconnaissance to active exploitation acr
 * **Authentication Bypass:** Injected the payload `1 or 1=1`.
 * **Result:** The backend query resolved as `SELECT * FROM users WHERE id = 1 OR 1=1;`. Because `1=1` is a tautology, the database returned every record in the table.
 
+<img width="1745" height="1077" alt="1 or 1=1" src="https://github.com/user-attachments/assets/59ae27b7-e22f-49cc-875e-eecda095005e" />
+
 
 
 ### Client-Side Bypass (Medium Security)
@@ -92,6 +97,9 @@ This log documents the transition from reconnaissance to active exploitation acr
 * **The Bypass:** Used Browser DevTools (**F12**) to inspect the element and manually modify the `value` attribute of a dropdown option to my injection payload.
 * **Extraction Payload:** `1 UNION SELECT user, password FROM users`
 * **Result (Credential Leak):** Successfully dumped MD5 hashes for the entire user database.
+
+<img width="1745" height="1077" alt="Union Select" src="https://github.com/user-attachments/assets/3369b1de-6230-4cdc-a1ec-1e462b131b84" />
+
 
 **Exfiltrated Credentials:**
 | Username | MD5 Hash | Decrypted Password |
