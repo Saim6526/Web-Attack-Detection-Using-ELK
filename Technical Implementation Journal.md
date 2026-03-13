@@ -99,6 +99,10 @@ Finally, I imported the database schema to complete the setup:
 
 `sudo mysql -u dvwauser -p dvwa < /var/www/html/DVWA/dvwa.sql`
 
+
+After completing the previous steps, click “Create Database” and the setup will be finished.
+<img width="1600" height="1077" alt="DVWA_Setup_Page" src="https://github.com/user-attachments/assets/112d17a1-207c-433d-b95d-607afef1eb51" />
+
 ## The "Attacker Mindset" Logging Setup
 Setting up logs is crucial because the main goal is to understand the hacker's mindset and the evidence they leave behind. This data is what we use to build playbooks for SIEM/IDS/IPS.
 
