@@ -44,7 +44,11 @@ It's important to check if the servers are actually running after installation.
 sudo systemctl status apache2 --no-pager
 sudo systemctl status mariadb --no-pager
 ```
-<img width="1320" height="970" alt="Apache2" src="https://github.com/user-attachments/assets/2874c3d5-78cd-4954-86d0-4c08ef3167ad" />
+
+<img width="1745" height="1077" alt="image" src="https://github.com/user-attachments/assets/d587dde3-a12b-4c46-abeb-39be6a653fe4" />
+
+
+
 <img width="1600" height="1077" alt="MariaDB" src="https://github.com/user-attachments/assets/4338c8cc-76b3-427d-ba15-eeaac5aae25d" />
 
 
